@@ -1,0 +1,36 @@
+# 認知エージェント実験（方針B, 合成環境）の事前設定
+seeds: [0, 1, 2, 3, 4]
+days: 400
+mission_until: 250            # 任務除去の反実仮想で任務を外す日
+intervention_day: 250         # 記憶消去・感情ショックを入れる日
+planner:
+  kappa: 1.0                  # 任務の強さ κ
+  c0: 0.3                     # 一般的配慮（誰に対しても同じ）
+  eff: 0.8                    # 助けたときの効果
+  beta_w: 0.3                 # 心配の行動への影響
+  beta_f: 0.5                 # 苛立ちの行動への影響
+  cost_help: 0.05
+  cost_obs: 0.02
+  tau: 0.15                   # softmax の温度
+  risk_max: 0.5
+  kappa_E: 0.5                # 感情の減衰（1日あたり）
+relationship:
+  eta: 0.05
+  rho: 0.01
+  Bmax: 5.0
+  a_c: 1.0
+  a_r: 0.8
+  a_s: 0.5
+  lam_B: 0.05
+models: [none, exposure, recip_only, feedback, memory]
+sweep:
+  eta: [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1.0]
+  rho: [0.005, 0.01, 0.02, 0.05, 0.2]
+  Bmax: [2.0, 5.0, 20.0]
+  gain: [0.1, 0.3, 1.0]
+  g0: 0.2
+# 事前に定めた判断基準
+criteria:
+  pref_threshold: 0.6         # 長期選好ありとみなす P(A を選ぶ) の下限（任務なし・感情なしの探索試行）
+  persist_ratio: 0.5          # 任務除去後 150 日で B_A が除去時の半分以上残れば「持続」
+  affect_B_tolerance: 0.1     # 感情ショックで B_A が対照より 10% 以上変わったら「分離できていない」

@@ -1,0 +1,18 @@
+# 知覚実験（方針A）の事前設定。結果を見る前に固定する値。
+seeds: [0, 1, 2, 3, 4]        # 本試験と同じ5シード（予備結果も同数で実行）
+n_train: 300                  # 較正用の訓練物体（テストと別に生成＝物体単位の分割）
+n_test: 300                   # 条件ごとのテスト物体
+t_decision: 1.0               # 判断時刻[s]。到着時刻がこれ以前の観測だけを使う
+Q: 0.001                      # 状態遷移の拡散（物体特性はほぼ一定）
+pi_common: 0.9                # 共通原因の事前確率（仮定。実データでは較正が必要）
+abstain_sd: 0.35              # 事後標準偏差がこれを超えたら判断保留
+primary: {metric: mae, baseline: concat, proposal: full, min_effect: 0.02}
+chem:
+  t_decision: 8.0
+  fixed_delay: 3.0            # 低湿度で決めた「平坦になる時刻」
+  n: 200
+active:
+  cost_press: 0.05
+  cost_tap: 0.03
+  cost_look: 0.01
+  p_fragile_max: 0.2
